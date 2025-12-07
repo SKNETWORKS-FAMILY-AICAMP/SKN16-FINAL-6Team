@@ -1,0 +1,115 @@
+
+# RAG 평가 설정 파일
+# 청킹 전략, 검색 구성, 평가 파라미터 정의
+
+chunking_strategies:
+  strategy_1:
+    name: "Small (256, overlap=0)"
+    chunk_size: 256
+    chunk_overlap: 0
+  
+  strategy_2:
+    name: "Small-Medium (512, overlap=50)"
+    chunk_size: 512
+    chunk_overlap: 50
+  
+  strategy_3:
+    name: "Medium (1024, overlap=100)"
+    chunk_size: 1024
+    chunk_overlap: 100
+  
+  strategy_4:
+    name: "Large (2048, overlap=200)"
+    chunk_size: 2048
+    chunk_overlap: 200
+
+retrieval_configs:
+  config_1:
+    name: "Dense Only (top_k=5)"
+    retrieval_type: "dense"
+    top_k: 5
+    use_reranker: false
+  
+  config_2:
+    name: "Dense Only (top_k=10)"
+    retrieval_type: "dense"
+    top_k: 10
+    use_reranker: false
+  
+  config_3:
+    name: "Hybrid Dense+Sparse (alpha=0.5, top_k=10)"
+    retrieval_type: "hybrid"
+    top_k: 10
+    hybrid_alpha: 0.5
+    use_reranker: false
+  
+  config_4:
+    name: "Dense + Reranker (top_k=10)"
+    retrieval_type: "dense"
+    top_k: 10
+    candidate_k: 20
+    use_reranker: true
+    rerank_model: "BAAI/bge-reranker-v2-m3"
+
+  config_5:
+    name: "Single-Stage Ensemble (top_k=5)"
+    retrieval_type: "dense"
+    top_k: 5
+    candidate_k: 20
+    stage_strategy: "ensemble"
+    ensemble_rerankers:
+      - model: "BAAI/bge-reranker-large"
+        weight: 0.5
+        device: "cuda:0"
+      - model: "BAAI/bge-reranker-v2-m3"
+        weight: 0.5
+        device: "cuda:1"
+
+  config_6:
+    name: "Two-Stage (top10→top5)"
+    retrieval_type: "dense"
+    top_k: 5
+    stage_strategy: "two-stage"
+    stage1:
+      candidate_k: 25
+      keep_k: 10
+      rerank_model: "BAAI/bge-reranker-v2-m3"
+      rerank_device: "cuda:0"
+    stage2:
+      final_k: 5
+      rerank_model: "BAAI/bge-reranker-large"
+      rerank_device: "cuda:1"
+
+evaluation:
+  sample_size: 15
+  use_ragas: true
+  metrics:
+    - context_precision
+    - context_recall
+    - faithfulness
+    - answer_relevancy
+
+embedding:
+  model_name: "BAAI/bge-m3"
+  use_fp16: true
+  batch_size: 32
+  max_length: 1024
+
+llm:
+  provider: "openai"
+  model_name: "gpt-4.1"
+  api_key_env: "OPENAI_API_KEY"
+  api_base: null
+  max_new_tokens: 300
+  temperature: 0.2
+  top_p: 0.9
+  max_context_docs: 3
+  max_retries: 3
+  retry_delay: 2.0
+  translate_ragas_answers: true
+  ragas_translation_model: null
+
+reranker:
+  max_batch_size: 8
+  translate_ragas_answers: true
+  ragas_translation_model: null
