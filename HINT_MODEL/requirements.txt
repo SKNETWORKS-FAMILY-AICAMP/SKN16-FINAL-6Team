@@ -1,0 +1,14 @@
+# Runpod Hint Service Dependencies
+
+# Runpod Serverless SDK
+runpod>=1.6.0
+
+# LangGraph (힌트 생성 로직)
+langgraph>=0.0.20
+langchain-core>=0.1.0
+
+# OpenAI API
+openai>=1.0.0
+
+# 기본 유틸리티
+requests>=2.31.0

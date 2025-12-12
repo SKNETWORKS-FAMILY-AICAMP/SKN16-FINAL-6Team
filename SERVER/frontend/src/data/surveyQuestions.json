@@ -1,0 +1,379 @@
+{
+  "survey_title": "알고리즘 학습 로드맵 설정",
+  "survey_description": "당신에게 맞는 학습 계획을 세워드립니다. 1-2분이면 완료됩니다.",
+
+  "questions": [
+    {
+      "id": 1,
+      "type": "single_choice",
+      "category": "experience",
+      "question": "프로그래밍 경험이 얼마나 되셨나요?",
+      "description": "알고리즘 문제 풀이 경험을 기준으로 선택해주세요",
+      "required": true,
+      "options": [
+        {
+          "value": "beginner",
+          "label": "초급 (0-1년)",
+          "description": "프로그래밍을 시작한 지 얼마 안 됐어요"
+        },
+        {
+          "value": "intermediate",
+          "label": "중급 (1-3년)",
+          "description": "기본적인 알고리즘은 알고 있어요"
+        },
+        {
+          "value": "advanced",
+          "label": "고급 (3년 이상)",
+          "description": "다양한 알고리즘과 자료구조에 익숙해요"
+        }
+      ]
+    },
+
+    {
+      "id": 2,
+      "type": "multiple_choice",
+      "category": "goals",
+      "question": "학습 목표를 선택해주세요",
+      "description": "여러 개 선택 가능합니다",
+      "required": true,
+      "min_select": 1,
+      "max_select": null,
+      "options": [
+        {
+          "value": "basics",
+          "label": "기초 다지기",
+          "description": "프로그래밍 기초부터 차근차근"
+        },
+        {
+          "value": "algorithms",
+          "label": "알고리즘 마스터",
+          "description": "DP, 그래프, 그리디 등 고급 알고리즘 학습"
+        },
+        {
+          "value": "data_structures",
+          "label": "자료구조 이해",
+          "description": "배열, 스택, 큐, 트리 등을 제대로 배우고 싶어요"
+        },
+        {
+          "value": "coding_test",
+          "label": "코딩 테스트 준비",
+          "description": "취업/이직을 위한 코딩 테스트 대비"
+        },
+        {
+          "value": "programming_skills",
+          "label": "프로그래밍 실력 향상",
+          "description": "코드 작성 능력을 전반적으로 향상"
+        }
+      ]
+    },
+
+    {
+      "id": 3,
+      "type": "multiple_choice",
+      "category": "interests",
+      "question": "관심 있는 분야를 선택해주세요",
+      "description": "배우고 싶은 알고리즘/자료구조를 모두 선택하세요",
+      "required": true,
+      "min_select": 1,
+      "max_select": null,
+      "options": [
+        {
+          "value": "data_structures",
+          "label": "자료구조",
+          "description": "배열, 스택, 큐, 힙",
+          "problem_count": 223,
+          "icon": "📦"
+        },
+        {
+          "value": "string",
+          "label": "문자열",
+          "description": "문자열 처리 및 패턴 매칭",
+          "problem_count": 203,
+          "icon": "📝"
+        },
+        {
+          "value": "sorting",
+          "label": "정렬",
+          "description": "다양한 정렬 알고리즘",
+          "problem_count": 130,
+          "icon": "🔢"
+        },
+        {
+          "value": "search",
+          "label": "탐색",
+          "description": "이분탐색, 완전탐색",
+          "problem_count": 102,
+          "icon": "🔍"
+        },
+        {
+          "value": "dp",
+          "label": "동적계획법 (DP)",
+          "description": "메모이제이션, 최적화 문제",
+          "problem_count": 593,
+          "icon": "💡",
+          "badge": "인기"
+        },
+        {
+          "value": "greedy",
+          "label": "그리디",
+          "description": "탐욕 알고리즘",
+          "problem_count": 29,
+          "icon": "🎯"
+        },
+        {
+          "value": "graph_tree",
+          "label": "그래프/트리",
+          "description": "DFS, BFS, 트리 순회",
+          "problem_count": 303,
+          "icon": "🌳"
+        },
+        {
+          "value": "math",
+          "label": "수학",
+          "description": "정수론, 조합론, 기하학",
+          "problem_count": 256,
+          "icon": "🔢"
+        },
+        {
+          "value": "implementation",
+          "label": "구현",
+          "description": "시뮬레이션, 구현 문제",
+          "problem_count": 219,
+          "icon": "⚙️"
+        },
+        {
+          "value": "bitmask",
+          "label": "비트마스킹",
+          "description": "비트 연산 활용",
+          "problem_count": 70,
+          "icon": "🔣"
+        },
+        {
+          "value": "segment_tree",
+          "label": "세그먼트트리",
+          "description": "구간 쿼리 자료구조",
+          "problem_count": 112,
+          "icon": "🌲",
+          "difficulty": "중급"
+        },
+        {
+          "value": "shortest_path",
+          "label": "최단경로",
+          "description": "다익스트라, 플로이드-워셜",
+          "problem_count": 29,
+          "icon": "🛤️",
+          "difficulty": "중급"
+        },
+        {
+          "value": "mst",
+          "label": "최소신장트리",
+          "description": "크루스칼, 프림",
+          "problem_count": 56,
+          "icon": "🌉",
+          "difficulty": "중급"
+        },
+        {
+          "value": "network_flow",
+          "label": "네트워크플로우",
+          "description": "최대유량, 이분매칭",
+          "problem_count": 97,
+          "icon": "💧",
+          "difficulty": "고급"
+        },
+        {
+          "value": "advanced_ds",
+          "label": "고급자료구조",
+          "description": "Mo's, 평방분할, 퍼시스턴트",
+          "problem_count": 58,
+          "icon": "🔬",
+          "difficulty": "고급"
+        }
+      ]
+    },
+
+    {
+      "id": 4,
+      "type": "multiple_choice",
+      "category": "weaknesses",
+      "question": "보완하고 싶은 부분을 선택해주세요",
+      "description": "어려워하거나 더 연습하고 싶은 분야를 선택하세요",
+      "required": false,
+      "min_select": 0,
+      "max_select": null,
+      "options": [
+        {
+          "value": "data_structures",
+          "label": "자료구조",
+          "description": "배열, 스택, 큐, 힙",
+          "problem_count": 223,
+          "icon": "📦"
+        },
+        {
+          "value": "string",
+          "label": "문자열",
+          "description": "문자열 처리 및 패턴 매칭",
+          "problem_count": 203,
+          "icon": "📝"
+        },
+        {
+          "value": "sorting",
+          "label": "정렬",
+          "description": "다양한 정렬 알고리즘",
+          "problem_count": 130,
+          "icon": "🔢"
+        },
+        {
+          "value": "search",
+          "label": "탐색",
+          "description": "이분탐색, 완전탐색",
+          "problem_count": 102,
+          "icon": "🔍"
+        },
+        {
+          "value": "dp",
+          "label": "동적계획법 (DP)",
+          "description": "메모이제이션, 최적화 문제",
+          "problem_count": 593,
+          "icon": "💡",
+          "badge": "인기"
+        },
+        {
+          "value": "greedy",
+          "label": "그리디",
+          "description": "탐욕 알고리즘",
+          "problem_count": 29,
+          "icon": "🎯"
+        },
+        {
+          "value": "graph_tree",
+          "label": "그래프/트리",
+          "description": "DFS, BFS, 트리 순회",
+          "problem_count": 303,
+          "icon": "🌳"
+        },
+        {
+          "value": "math",
+          "label": "수학",
+          "description": "정수론, 조합론, 기하학",
+          "problem_count": 256,
+          "icon": "🔢"
+        },
+        {
+          "value": "implementation",
+          "label": "구현",
+          "description": "시뮬레이션, 구현 문제",
+          "problem_count": 219,
+          "icon": "⚙️"
+        },
+        {
+          "value": "bitmask",
+          "label": "비트마스킹",
+          "description": "비트 연산 활용",
+          "problem_count": 70,
+          "icon": "🔣"
+        },
+        {
+          "value": "segment_tree",
+          "label": "세그먼트트리",
+          "description": "구간 쿼리 자료구조",
+          "problem_count": 112,
+          "icon": "🌲",
+          "difficulty": "중급"
+        },
+        {
+          "value": "shortest_path",
+          "label": "최단경로",
+          "description": "다익스트라, 플로이드-워셜",
+          "problem_count": 29,
+          "icon": "🛤️",
+          "difficulty": "중급"
+        },
+        {
+          "value": "mst",
+          "label": "최소신장트리",
+          "description": "크루스칼, 프림",
+          "problem_count": 56,
+          "icon": "🌉",
+          "difficulty": "중급"
+        },
+        {
+          "value": "network_flow",
+          "label": "네트워크플로우",
+          "description": "최대유량, 이분매칭",
+          "problem_count": 97,
+          "icon": "💧",
+          "difficulty": "고급"
+        },
+        {
+          "value": "advanced_ds",
+          "label": "고급자료구조",
+          "description": "Mo's, 평방분할, 퍼시스턴트",
+          "problem_count": 58,
+          "icon": "🔬",
+          "difficulty": "고급"
+        }
+      ]
+    },
+
+    {
+      "id": 5,
+      "type": "single_choice_with_slider",
+      "category": "target",
+      "question": "학습량을 설정해주세요",
+      "description": "하루 단위 또는 주간 단위로 목표 문제 수를 정하세요",
+      "required": true,
+      "select_options": [
+        {
+          "value": "daily",
+          "label": "하루 목표",
+          "description": "매일 풀고 싶은 문제 개수를 설정합니다"
+        },
+        {
+          "value": "weekly",
+          "label": "주간 목표",
+          "description": "일주일에 풀고 싶은 문제 개수를 설정합니다"
+        }
+      ],
+      "sliders": {
+        "daily": {
+          "label": "하루 목표 문제 수",
+          "min": 1,
+          "max": 10,
+          "default": 2,
+          "step": 1,
+          "unit": "개"
+        },
+        "weekly": {
+          "label": "주간 목표 문제 수",
+          "min": 7,
+          "max": 70,
+          "default": 14,
+          "step": 1,
+          "unit": "개"
+        }
+      },
+      "note": "하루 목표 또는 주간 목표 중 하나를 선택하세요"
+    }
+  ],
+
+  "result_calculation": {
+    "roadmap_generation": {
+      "based_on": [
+        "experience",
+        "goals",
+        "interests",
+        "weaknesses",
+        "target"
+      ],
+      "algorithm": "Personalized problem recommendation based on user profile"
+    }
+  },
+
+  "ui_guidelines": {
+    "layout": "single-page with smooth scroll",
+    "progress_indicator": true,
+    "save_draft": true,
+    "estimated_time": "1-2분",
+    "note": "모든 분야 옵션이 항상 표시되며, 난이도 표시만 제공"
+  }
+}

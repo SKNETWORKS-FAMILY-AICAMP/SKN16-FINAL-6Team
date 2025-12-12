@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+  # MySQL과 Redis는 docker-compose.base.yml에서 관리 (외부 참조)
+
+  # Django 백엔드 - Blue
+  backend_blue:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: hint_system_backend_blue
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000 --workers 4 --timeout 120 --reload
+    volumes:
+      - ./backend:/app
+      - static_volume:/app/staticfiles
+      - media_volume:/app/media
+    ports:
+      - "8001:8000"  # Blue는 8001 포트 사용
+    env_file:
+      - .env
+    networks:
+      - hint_network
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+  # React 프론트엔드 - Blue
+  frontend_blue:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: hint_system_frontend_blue
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "3001:3000"  # Blue는 3001 포트 사용
+    environment:
+      - VITE_API_BASE_URL=${VITE_API_BASE_URL:-http://localhost:8000/api/v1}
+    depends_on:
+      - backend_blue
+    networks:
+      - hint_network
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    restart: unless-stopped
+
+volumes:
+  static_volume:
+    external: true
+    name: final_server_static_volume
+  media_volume:
+    external: true
+    name: final_server_media_volume
+
+networks:
+  hint_network:
+    external: true
+    name: final_server_hint_network
