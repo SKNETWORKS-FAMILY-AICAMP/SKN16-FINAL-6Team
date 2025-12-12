@@ -17,13 +17,18 @@
 ```
 FINAL/
 ├── CHATBOT_MODEL/          # RAG 챗봇 모델
-│   ├── crawler/            # Git, Python, Docker, AWS 문서 크롤러
-│   ├── data/               # 크롤링된 원시 데이터
-│   ├── experiments/        # RAG 파이프라인 실험
-│   │   └── rag_pipeline/
-│   │       └── langgraph_rag/  # LangGraph 기반 Adaptive RAG
-│   ├── docs/               # 기술 문서
-│   └── results/            # 평가 결과
+│   ├── langgraph_rag/      # LangGraph 13개 노드 구현
+│   │   ├── config.py       # 설정 로더
+│   │   ├── state.py        # State 정의 (23 fields)
+│   │   ├── nodes.py        # 13개 노드 구현
+│   │   ├── graph.py        # LangGraph 워크플로우
+│   │   ├── tools.py        # 검색/Reranking 도구
+│   │   └── main.py         # CLI 진입점
+│   ├── config/             # RAG 설정 파일
+│   ├── prompts/            # LLM 프롬프트 템플릿
+│   ├── artifacts/          # 벡터 DB (Git LFS)
+│   ├── serve_unified.py    # FastAPI 서버
+│   └── README.md           # 상세 실행 가이드
 │
 ├── HINT_MODEL/             # 힌트 생성 서비스 (Runpod Serverless)
 │   ├── handler.py          # Runpod 핸들러
@@ -55,22 +60,29 @@ FINAL/
 
 ### 1. CHATBOT_MODEL - RAG 챗봇
 
-**기술 문서 Q&A 시스템**으로 Git, Python, Docker, AWS 문서에 대한 질의응답을 제공합니다.
+**LangGraph 기반 기술 문서 Q&A 시스템**으로 Git, Python 문서에 대한 질의응답을 제공합니다.
+
+**13개 노드 워크플로우:**
+1. Intent Classifier → 2. Load User Context (개인화) → 3. Query Router
+→ 4. Hybrid Retrieve → 5-6. Two-Stage Reranking → 7. Grade Documents
+→ 8. Transform Query → 9. Web Search (fallback) → 10. Generate (GPT-4o)
+→ 11. Hallucination Check → 12. Answer Grading → 13. Suggest Related Questions
 
 **주요 특징:**
-- **Hybrid Search**: Dense + Sparse + RRF Fusion
-- **2-Stage Reranking**: BGE-reranker-v2-m3 + BGE-reranker-large
-- **LangGraph Adaptive RAG**: Query Routing, Document Grading, Self-RAG
-- **웹 검색 Fallback**: Tavily 연동
-- **LangSmith 추적**: 워크플로우 디버깅
+- **Hybrid Search**: Dense (bge-m3) + Sparse (BM25) + RRF Fusion
+- **Two-Stage Reranking**: 속도(Stage1) + 정확도(Stage2) 균형
+- **Self-RAG**: 문서 품질 평가, 환각 체크, 답변 평가
+- **Constitutional AI**: Anthropic 원칙 기반 프롬프트
+- **Personalization**: 사용자 학습 이력 기반 추천
 
-**성능:**
-| 지표 | Optimized RAG | LangGraph RAG |
-|------|---------------|---------------|
-| Context Precision | 0.85 | 0.92 |
-| Answer Relevancy | 0.90 | 0.95 |
-| Hallucination Rate | 10% | 3% |
-| 응답 속도 | 5초 | 7-10초 |
+**RAGAS 평가 성능:**
+| 지표 | 점수 |
+|------|------|
+| Context Precision | 84.61% |
+| Context Recall | 92.08% |
+| Faithfulness | 86.81% |
+| Answer Relevancy | 82.40% |
+| Answer Correctness | 69.12% |
 
 ### 2. HINT_MODEL - AI 힌트 서비스
 
@@ -119,13 +131,13 @@ input → solution_match → purpose → parallel_analysis → branch
 ## 기술 스택
 
 ### AI/ML
-- **LLM**: GPT-4.1, GPT-4o-mini
-- **Embedding**: BAAI/bge-m3
-- **Reranking**: BGE-reranker-v2-m3, BGE-reranker-large
+- **LLM**: GPT-4o, GPT-4o-mini
+- **Embedding**: BAAI/bge-m3 (다국어 지원)
+- **Reranking**: BGE-reranker-v2-m3 (빠름), BGE-reranker-large (정밀)
 - **Framework**: LangGraph, LangChain
-- **Vector DB**: ChromaDB
+- **Vector DB**: ChromaDB (Git LFS)
 - **Evaluation**: RAGAS
-- **Monitoring**: LangSmith
+- **Search**: Tavily (웹 검색)
 
 ### Backend
 - **Framework**: Django 4.x, Django REST Framework
@@ -154,12 +166,12 @@ input → solution_match → purpose → parallel_analysis → branch
 
 `.env` 파일은 보안상 GitHub에 포함되지 않습니다. `.env.example`을 참고하여 직접 생성하세요.
 
+**SERVER 환경 변수:**
 ```bash
 cd SERVER
 cp .env.example .env
 ```
 
-**필수 환경 변수:**
 | 변수명 | 설명 |
 |--------|------|
 | `DJANGO_SECRET_KEY` | Django 시크릿 키 |
@@ -168,7 +180,30 @@ cp .env.example .env
 | `RUNPOD_CHATBOT_URL` | RAG 챗봇 서버 URL (RunPod) |
 | `VITE_API_BASE_URL` | 프론트엔드 API 주소 |
 
-### 2. DB 초기화
+**CHATBOT_MODEL 환경 변수:**
+```bash
+cd CHATBOT_MODEL
+cp .env.example .env
+```
+
+| 변수명 | 설명 |
+|--------|------|
+| `OPENAI_API_KEY` | OpenAI API 키 (GPT-4o) |
+| `TAVILY_API_KEY` | Tavily API 키 (웹 검색, 선택) |
+
+### 2. Git LFS 설정 (CHATBOT_MODEL 사용 시 필수)
+
+CHATBOT_MODEL의 벡터 데이터베이스는 Git LFS로 관리됩니다.
+
+```bash
+# Git LFS 설치
+git lfs install
+
+# 벡터 DB 파일 다운로드
+git lfs pull
+```
+
+### 3. DB 초기화
 
 DB 백업 파일(`db_backup.sql`)은 GitHub에 포함되지 않습니다. 필요시 팀원에게 요청하세요.
 
@@ -179,7 +214,7 @@ docker-compose up -d db
 docker-compose exec -T db mysql -u hint_user -p hint_system < db_backup.sql
 ```
 
-### 3. 로컬 개발 환경
+### 4. 로컬 개발 환경
 
 ```bash
 # 백엔드 실행
@@ -194,7 +229,7 @@ npm install
 npm run dev
 ```
 
-### 4. Docker 실행
+### 5. Docker 실행
 
 ```bash
 cd SERVER
@@ -202,6 +237,16 @@ docker-compose up -d --build
 docker-compose exec backend python manage.py migrate
 docker-compose exec backend python manage.py collectstatic --noinput
 ```
+
+### 6. CHATBOT_MODEL 서버 실행 (선택)
+
+```bash
+cd CHATBOT_MODEL
+pip install -r requirements.txt
+python serve_unified.py --rag-type langgraph --port 8080
+```
+
+서버가 `http://localhost:8080`에서 실행됩니다.
 
 ---
 
