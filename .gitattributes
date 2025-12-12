@@ -1,0 +1,2 @@
+CHATBOT_MODEL/artifacts/chroma_db/*.sqlite3 filter=lfs diff=lfs merge=lfs -text
+CHATBOT_MODEL/artifacts/chroma_db/**/*.bin filter=lfs diff=lfs merge=lfs -text

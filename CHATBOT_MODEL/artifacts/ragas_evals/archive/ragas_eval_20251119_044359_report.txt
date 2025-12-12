@@ -1,0 +1,85 @@
+======================================================================
+RAGAS EVALUATION REPORT
+======================================================================
+
+Timestamp: 2025-11-19 04:43:59
+Config: config/base.yaml
+Questions: ragas_questions.json
+Total Questions: 15
+
+----------------------------------------------------------------------
+OVERALL METRICS
+----------------------------------------------------------------------
+Context Precision:   0.7433
+Context Recall:      0.6333
+Faithfulness:        0.7987
+Answer Relevancy:    0.8322
+Answer Correctness:  0.7010
+
+----------------------------------------------------------------------
+METRICS BY DIFFICULTY
+----------------------------------------------------------------------
+
+EASY (4 questions):
+  Context Precision:   0.8000
+  Context Recall:      0.8750
+  Faithfulness:        0.9062
+  Answer Relevancy:    0.8845
+  Answer Correctness:  0.7239
+
+MEDIUM (5 questions):
+  Context Precision:   0.8500
+  Context Recall:      0.6667
+  Faithfulness:        0.8424
+  Answer Relevancy:    0.8906
+  Answer Correctness:  0.7434
+
+HARD (6 questions):
+  Context Precision:   0.6167
+  Context Recall:      0.4444
+  Faithfulness:        0.6905
+  Answer Relevancy:    0.7488
+  Answer Correctness:  0.6505
+
+----------------------------------------------------------------------
+METRICS BY DOMAIN
+----------------------------------------------------------------------
+
+GIT (3 questions):
+  Context Precision:   1.0000
+  Context Recall:      1.0000
+  Faithfulness:        0.7495
+  Answer Relevancy:    0.8890
+  Answer Correctness:  0.6440
+
+PYTHON (3 questions):
+  Context Precision:   0.9833
+  Context Recall:      0.8889
+  Faithfulness:        1.0000
+  Answer Relevancy:    0.8826
+  Answer Correctness:  0.7873
+
+DOCKER (3 questions):
+  Context Precision:   0.4000
+  Context Recall:      0.3889
+  Faithfulness:        0.8889
+  Answer Relevancy:    0.5928
+  Answer Correctness:  0.7370
+
+AWS (3 questions):
+  Context Precision:   0.8333
+  Context Recall:      0.8889
+  Faithfulness:        0.8889
+  Answer Relevancy:    0.9030
+  Answer Correctness:  0.7714
+
+INTEGRATION (3 questions):
+  Context Precision:   0.5000
+  Context Recall:      0.0000
+  Faithfulness:        0.4661
+  Answer Relevancy:    0.8938
+  Answer Correctness:  0.5655
+
+----------------------------------------------------------------------
+TOP 3 QUESTIONS (by answer_relevancy)
+----------------------------------------------------------------------

@@ -1,0 +1,109 @@
+======================================================================
+RAGAS EVALUATION REPORT
+======================================================================
+
+Timestamp: 2025-11-19 04:52:00
+Config: config/base.yaml
+Questions: ragas_questions.json
+Total Questions: 15
+
+----------------------------------------------------------------------
+OVERALL METRICS
+----------------------------------------------------------------------
+Context Precision:   0.6748
+Context Recall:      0.6333
+Faithfulness:        0.8588
+Answer Relevancy:    0.7743
+Answer Correctness:  0.5964
+
+----------------------------------------------------------------------
+METRICS BY DIFFICULTY
+----------------------------------------------------------------------
+
+EASY (4 questions):
+  Context Precision:   0.7514
+  Context Recall:      0.8750
+  Faithfulness:        0.9318
+  Answer Relevancy:    0.6598
+  Answer Correctness:  0.6054
+
+MEDIUM (5 questions):
+  Context Precision:   0.7000
+  Context Recall:      0.6667
+  Faithfulness:        0.8855
+  Answer Relevancy:    0.8895
+  Answer Correctness:  0.6862
+
+HARD (6 questions):
+  Context Precision:   0.6028
+  Context Recall:      0.4444
+  Faithfulness:        0.7879
+  Answer Relevancy:    0.7547
+  Answer Correctness:  0.5155
+
+----------------------------------------------------------------------
+METRICS BY DOMAIN
+----------------------------------------------------------------------
+
+GIT (3 questions):
+  Context Precision:   0.9352
+  Context Recall:      1.0000
+  Faithfulness:        0.7818
+  Answer Relevancy:    0.8963
+  Answer Correctness:  0.5598
+
+PYTHON (3 questions):
+  Context Precision:   0.9556
+  Context Recall:      0.8889
+  Faithfulness:        1.0000
+  Answer Relevancy:    0.8871
+  Answer Correctness:  0.8767
+
+DOCKER (3 questions):
+  Context Precision:   0.4000
+  Context Recall:      0.3889
+  Faithfulness:        1.0000
+  Answer Relevancy:    0.5928
+  Answer Correctness:  0.6015
+
+AWS (3 questions):
+  Context Precision:   0.8333
+  Context Recall:      0.8889
+  Faithfulness:        0.9364
+  Answer Relevancy:    0.6035
+  Answer Correctness:  0.6113
+
+INTEGRATION (3 questions):
+  Context Precision:   0.2500
+  Context Recall:      0.0000
+  Faithfulness:        0.5758
+  Answer Relevancy:    0.8920
+  Answer Correctness:  0.3324
+
+----------------------------------------------------------------------
+TOP 3 QUESTIONS (by answer_relevancy)
+----------------------------------------------------------------------
+
+Q14: Git Flow 브랜치 전략을 Docker CI/CD 파이프라인과 어떻게 통합할 수 있나요?...
+  Relevancy: 0.9148 | Faithfulness: 0.6667
+
+Q10: Python의 GIL(Global Interpreter Lock)이 무엇이며, 멀티스레딩 성능에 어떤 영향을...
+  Relevancy: 0.9138 | Faithfulness: 1.0000
+
+Q9: Git의 3-way merge는 어떻게 작동하며, conflict가 발생하는 경우를 설명해주세요....
+  Relevancy: 0.9137 | Faithfulness: 0.8182
+
+----------------------------------------------------------------------
+BOTTOM 3 QUESTIONS (by answer_relevancy)
+----------------------------------------------------------------------
+
+Q4: AWS S3는 어떤 용도로 사용되나요?...
+  Relevancy: 0.0000 | Faithfulness: 1.0000
+
+Q11: Docker의 multi-stage build는 무엇이며, 어떤 이점이 있나요?...
+  Relevancy: 0.0000 | Faithfulness: 1.0000
+
+Q2: Python에서 리스트와 튜플의 가장 큰 차이점은 무엇인가요?...
+  Relevancy: 0.8528 | Faithfulness: 1.0000
+
+======================================================================

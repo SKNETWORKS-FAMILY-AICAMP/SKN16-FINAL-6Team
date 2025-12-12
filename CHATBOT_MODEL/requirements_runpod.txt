@@ -1,0 +1,37 @@
+# RunPod (Python 3.11-3.12 + CUDA 12.4) dependency set
+# For RTX 5090 and other sm_120 GPUs - requires PyTorch 2.8.0+
+# Install PyTorch first: pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+# Core runtime
+pandas==2.2.2
+pyarrow==16.1.0
+numpy==1.26.4
+pyyaml==6.0.1
+python-dotenv==1.0.0
+
+# Chunking / text processing
+langchain-text-splitters==0.0.1
+
+# Embedding / retrieval
+FlagEmbedding==1.2.11
+chromadb==0.4.24
+sentence-transformers==2.7.0
+onnxruntime-gpu==1.18.1  # GPU version for CUDA
+peft==0.10.0  # Required by FlagEmbedding for rerankers
+
+# LLM / API client
+openai>=1.50.0
+httpx>=0.27.0  # Required for openai compatibility
+
+# API serving
+fastapi==0.109.0
+uvicorn==0.27.0
+pydantic==2.5.3
+
+# Supporting libraries
+huggingface-hub==0.22.2
+requests==2.31.0
+
+# Evaluation / Benchmarking
+ragas>=0.1.0
+datasets>=2.14.0
